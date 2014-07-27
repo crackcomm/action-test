@@ -13,6 +13,7 @@ Test actions
 	Flags:
 	  -sources="": Actions sources (comma separated directories & urls)
 	  -tests="": File containing json
+	  -v=false: Verbose output: log all tests
 
 	Example JSON tests:
 
