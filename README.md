@@ -1,0 +1,51 @@
+# action-test
+
+Testing tool for actions.
+
+## Usage
+
+Test actions
+	
+	$ action-test
+	Usage of action-test:
+	  Application action-test runs tests from JSON files against actions from different sources.
+
+	Flags:
+	  -sources="": Actions sources (comma separated directories & urls)
+	  -tests="": File containing json
+
+	Example JSON tests:
+
+	  [
+	    {
+	      "action": "filmweb.find",
+	      "description": "Should find movie by title",
+	      "arguments": {
+	        "title": "Pulp Fiction"
+	      },
+	      "expect": {
+	              "writers": "Quentin Tarantino",
+	              "directors": "Quentin Tarantino",
+	        "title": "Pulp Fiction",
+	        "year": "1994"
+	      }
+	    }
+	  ]
+
+	$ action-test -tests=./example/tests.json -sources=./example/actions
+	=== RUN filmweb.find
+
+	  Should find Pulp Fiction
+
+	    √ genres => Gangsterski
+	    √ description => Przemoc i odkupienie w opowieści o dwóch płatnych mordercach pracujących na zlecenie mafii, żon...
+	    √ writers => Quentin Tarantino
+	    √ directors => Quentin Tarantino
+	    √ year => 1994
+	    √ poster => http://1.fwcdn.pl/po/10/39/1039/7517880.3.jpg
+	    √ countries => USA
+	    √ title => Pulp Fiction
+	    √ rating => 8,5
+
+	--- PASS: filmweb.find (234.0134ms)
+	...
