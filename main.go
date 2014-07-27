@@ -25,21 +25,8 @@ var (
 )
 
 func main() {
-	var srcs string
-	// var printhelp bool
-	flag.StringVar(&testfile, "tests", "", "File containing json ")
-	flag.StringVar(&srcs, "sources", "", "Actions sources (comma separated directories & urls)")
-	// flag.BoolVar(&printhelp, "help", false, "Print help")
-	flag.Parse()
-
-	// Split comma separated sources into a list
-	sources = strings.Split(srcs, ",")
-
-	// Print help if --help flag or --test empty
-	if testfile == "" {
-		flag.Usage()
-		return
-	}
+	// Parse flags and print Usage if `-tests` flag is empty.
+	parseFlags()
 
 	// Open file containing tests
 	f, err := os.Open(testfile)
@@ -104,6 +91,21 @@ var exampleTestJSON = `
     }
   ]
 `
+
+func parseFlags() {
+	var srcs string
+	flag.StringVar(&testfile, "tests", "", "File containing json ")
+	flag.StringVar(&srcs, "sources", "", "Actions sources (comma separated directories & urls)")
+	flag.Parse()
+
+	// Split comma separated sources into a list
+	sources = strings.Split(srcs, ",")
+
+	// Print help if --help flag or --test empty
+	if testfile == "" {
+		flag.Usage()
+	}
+}
 
 // init - Adds usage to flag.Usage :)
 func init() {
