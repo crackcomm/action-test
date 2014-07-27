@@ -51,6 +51,12 @@ func (result *Result) Print() {
 		}
 	}
 
+	for name, exp := range result.Test.Expect {
+		if _, has := result.Context[name]; !has {
+			fmt.Printf("    × %s is empty (expected %v)\n", name, exp)
+		}
+	}
+
 	// Print error if any
 	if err := result.Error; err != nil || !passed {
 		if err != nil {
