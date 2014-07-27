@@ -96,8 +96,8 @@ var exampleTestJSON = `
         "title": "Pulp Fiction"
       },
       "expect": {
-	      "writers": "Quentin Tarantino",
-	      "directors": "Quentin Tarantino",
+        "writers": "Quentin Tarantino",
+        "directors": "Quentin Tarantino",
         "title": "Pulp Fiction",
         "year": "1994"
       }
