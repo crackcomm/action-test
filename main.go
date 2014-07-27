@@ -104,6 +104,7 @@ func parseFlags() {
 	// Print help if --help flag or --test empty
 	if testfile == "" {
 		flag.Usage()
+		os.Exit(0)
 	}
 }
 
