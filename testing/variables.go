@@ -83,13 +83,20 @@ func toString(v interface{}) (res string) {
 		res = fmt.Sprintf("%v", value.Interface())
 	}
 
-	// Trim space from value
-	res = strings.TrimSpace(res)
-
 	// Cut value at 100 characters
 	if len(res) >= MaxVariableLength {
 		res = res[:MaxVariableLength] + "..."
 	}
+
+	// Break by new line and trim every line
+	var lines []string
+	for _, line := range strings.Split(res, "\n") {
+		lines = append(lines, strings.TrimSpace(line))
+	}
+
+	// Join to one line
+	res = strings.Join(lines, "")
+
 	return
 }
 
@@ -117,8 +124,13 @@ func compareValues(a, b interface{}) (ok bool) {
 // Comparing maps, tough - it's bad implementation
 func mapCompare(a, b interface{}) bool {
 	am, _ := action.Format{a}.Map()
-	bm, _ := action.Format{a}.Map()
-	return reflect.DeepEqual(am, bm)
+	bm, _ := action.Format{b}.Map()
+	for key, value := range am {
+		if !compareValues(value, bm[key]) {
+			return false
+		}
+	}
+	return true
 }
 
 // dumbStringsCompare - Dumb strings comparator.
