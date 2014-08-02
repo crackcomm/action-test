@@ -68,7 +68,15 @@ func readTests() (tests testing.Tests, err error) {
 	if ext == "" {
 		debugLog("Tests flag is a directory: %v", testfile)
 		var files []string
-		files, err = filepath.Glob(filepath.Join(testfile, "*"))
+		var dirname string
+		// If `-tests` flag contains `*` it's already a pattern
+		if strings.Contains(testfile, "*") {
+			dirname = testfile
+		} else {
+			dirname = filepath.Join(testfile, "*")
+		}
+		debugLog("Looking for tests in %s", dirname)
+		files, err = filepath.Glob(dirname)
 		if err != nil {
 			return
 		}
@@ -150,7 +158,7 @@ var exampleTestYAML = `
 
 func parseFlags() {
 	var srcs string
-	flag.StringVar(&testfile, "tests", "", "Files or directory containing YAML or JSON tests")
+	flag.StringVar(&testfile, "tests", "", "Files or directory containing YAML or JSON tests (can be glob pattern)")
 	flag.StringVar(&srcs, "sources", "", "Actions sources (comma separated directories & urls)")
 	flag.BoolVar(&debug, "debug", false, "Log debug info")
 	flag.Parse()

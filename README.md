@@ -13,7 +13,7 @@ Test actions
 	Flags:
 	  -debug=false: Log debug info
 	  -sources="": Actions sources (comma separated directories & urls)
-	  -tests="": Files or directory containing YAML or JSON tests
+	  -tests="": Files or directory containing YAML or JSON tests (can be glob pattern)
 	  -v=false: Verbose output: log all tests
 
 	Example YAML tests:
