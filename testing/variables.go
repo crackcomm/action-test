@@ -105,7 +105,7 @@ func compareValues(a, b interface{}) (ok bool) {
 		uint, uint8, uint16, uint32, uint64:
 		// Dumb numbers comparator
 		ok = dumbNumbersCompare(a, b)
-	case map[interface{}]interface{}:
+	case action.Map, map[string]interface{}, map[interface{}]interface{}:
 		ok = mapCompare(a, b)
 	default:
 		ok = reflect.DeepEqual(a, b)
