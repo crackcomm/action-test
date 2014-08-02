@@ -11,6 +11,7 @@ Test actions
 	  Application action-test runs tests from JSON or YAML files against actions from different sources.
 
 	Flags:
+	  -debug=false: Log debug info
 	  -sources="": Actions sources (comma separated directories & urls)
 	  -tests="": Files or directory containing YAML or JSON tests
 	  -v=false: Verbose output: log all tests
