@@ -10,10 +10,10 @@ var DefaultRunner = local.DefaultRunner
 
 // Test - Structure describing expected behaviour of action.
 type Test struct {
-	Name        string     `json:"name"`        // action name
-	Context     action.Map `json:"ctx"`         // action context
-	Description string     `json:"description"` // expected behaviour description
-	Expected    action.Map `json:"expect"`      // expected action result values
+	Name        string     `json:"name" yaml:"name"`               // action name
+	Context     action.Map `json:"ctx" yaml:"ctx"`                 // action context
+	Description string     `json:"description" yaml:"description"` // expected behaviour description
+	Expected    action.Map `json:"expect" yaml:"expect"`           // expected action result values
 }
 
 // Tests - List of tests.
@@ -43,7 +43,7 @@ func (tests Tests) Run() (results *Results) {
 	results = NewResults()
 	for _, test := range tests {
 		result := test.Run()
-		results.List = append(results.List, result)
+		results.Add(result)
 	}
 	results.End()
 	return

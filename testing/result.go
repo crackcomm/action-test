@@ -23,6 +23,7 @@ func NewResult(test *Test) *Result {
 		Test:      test,
 		Start:     time.Now(),
 		Variables: Variables{},
+		Passed:    false,
 	}
 }
 
@@ -44,19 +45,26 @@ func (result *Result) End(ctx action.Map, err error) {
 		}
 	}
 
-	result.Passed = result.Variables.Expected()
+	if err == nil {
+		result.Passed = result.Variables.Expected()
+	}
 }
 
 // Print - Print result information.
-func (result *Result) Print() (passed bool) {
+func (result *Result) Print() {
 	fmt.Printf("=== RUN %s\n", result.Test.Name)
 	fmt.Print("\n")
 	fmt.Printf("  %s\n", result.Test.Description)
 	fmt.Print("\n")
 
-	for _, variable := range result.Variables {
-		fmt.Printf("    %s\n", variable.String())
+	if result.Error != nil {
+		fmt.Printf("    ERROR: %v\n", result.Error)
+	} else {
+		for _, variable := range result.Variables {
+			fmt.Printf("    %s\n", variable.String())
+		}
 	}
+
 
 	// Print result footer
 	if result.Passed && result.Error == nil {

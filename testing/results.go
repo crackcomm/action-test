@@ -28,7 +28,7 @@ func NewResults() *Results {
 
 // Add - Adds result to the list.
 func (results *Results) Add(result *Result) {
-	if !result.Passed {
+	if !result.Passed || result.Error != nil {
 		results.Passed = false
 	}
 	results.List = append(results.List, result)

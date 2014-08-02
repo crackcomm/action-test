@@ -1,0 +1,35 @@
+- 
+  name: "filmweb.find"
+  description: "Should find Pulp Fiction"
+  ctx: 
+    query: 
+      q: "Pulp Fiction"
+  expect: 
+    writers: "Quentin Tarantino"
+    directors: "Quentin Tarantino"
+    title: "Pulp Fiction"
+    year: "1994"
+- 
+  name: "filmweb.find"
+  description: "Should find Apollo 13"
+  ctx: 
+    query: 
+      q: "Apollo 13"
+  expect: 
+    directors: "Ron Howard"
+    writers: 
+      - "William Broyles Jr."
+      - "Al Reinert"
+    title: "Apollo 13"
+    year: "1995"
+- 
+  name: "filmweb.find"
+  description: "Should find Avatar"
+  ctx: 
+    query: 
+      q: "avatar"
+  expect: 
+    directors: "James Cameron"
+    writers: "James Cameron"
+    title: "Avatar"
+    year: "2009"
