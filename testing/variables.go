@@ -44,7 +44,11 @@ func (v *Variable) IsExpected() bool {
 // String - Returns string for console printing.
 func (v *Variable) String() string {
 	if v.IsExpected() {
-		return fmt.Sprintf("√ %s => %s", v.Name, toString(v.Value))
+		symbol := "√"
+		if v.Expected == nil {
+			symbol = "?"
+		}
+		return fmt.Sprintf("%s %s => %s", symbol, v.Name, toString(v.Value))
 	}
 
 	// If not expected because value was nil
@@ -101,11 +105,20 @@ func compareValues(a, b interface{}) (ok bool) {
 		uint, uint8, uint16, uint32, uint64:
 		// Dumb numbers comparator
 		ok = dumbNumbersCompare(a, b)
+	case map[interface{}]interface{}:
+		ok = mapCompare(a, b)
 	default:
 		ok = reflect.DeepEqual(a, b)
 	}
 
 	return
+}
+
+// Comparing maps, tough - it's bad implementation
+func mapCompare(a, b interface{}) bool {
+	am, _ := action.Format{a}.Map()
+	bm, _ := action.Format{a}.Map()
+	return reflect.DeepEqual(am, bm)
 }
 
 // dumbStringsCompare - Dumb strings comparator.
