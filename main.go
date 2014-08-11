@@ -9,6 +9,7 @@ import (
 	"github.com/crackcomm/go-actions/source/file"
 	"github.com/crackcomm/go-actions/source/http"
 	_ "github.com/crackcomm/go-core"
+	"github.com/golang/glog"
 	"gopkg.in/yaml.v1"
 	"io/ioutil"
 	"log"
@@ -25,7 +26,6 @@ var l = log.New(os.Stdout, "[action-test] ", 0)
 var (
 	testfile = "tests.json" // json or yaml file containing tests
 	sources  []string       // actions sources (comma separated)
-	debug    bool
 )
 
 func main() {
@@ -47,13 +47,19 @@ func main() {
 		
 		// If source is a valid url - create http source
 		if isURL(source) {
-			debugLog("New HTTP source: %#v", source)
+			glog.V(3).Infof("New HTTP source: %#v", source)
 			core.AddSource(&http.Source{Path: source})
 		} else {
 			// Add file source to default core registry
-			debugLog("New File source: %#v", source)
+			glog.V(3).Infof("New File source: %#v", source)
 			core.AddSource(&file.Source{source})
 		}
+	}
+
+	// Print error when no tests
+	if len(tests) == 0 {
+		fmt.Printf("--- FAIL no tests")
+		return
 	}
 
 	// Run tests
@@ -66,7 +72,7 @@ func main() {
 func readTests() (tests testing.Tests, err error) {
 	ext := filepath.Ext(testfile)
 	if ext == "" {
-		debugLog("Tests flag is a directory: %v", testfile)
+		glog.V(3).Infof("Tests flag is a directory: %v", testfile)
 		var files []string
 		var dirname string
 		// If `-tests` flag contains `*` it's already a pattern
@@ -75,12 +81,12 @@ func readTests() (tests testing.Tests, err error) {
 		} else {
 			dirname = filepath.Join(testfile, "*")
 		}
-		debugLog("Looking for tests in %s", dirname)
+		glog.V(3).Infof("Looking for tests in %s", dirname)
 		files, err = filepath.Glob(dirname)
 		if err != nil {
 			return
 		}
-		debugLog("Reading files %v", files)
+		glog.V(3).Infof("Reading files %v", files)
 		tests, err = readFiles(files)
 		return
 	}
@@ -98,7 +104,7 @@ func readFiles(files []string) (tests testing.Tests, err error) {
 		case ".json":
 			// Read json file
 			var body []byte
-			debugLog("Reading json test %s", fname)
+			glog.V(3).Infof("Reading json test %s", fname)
 			body, err = ioutil.ReadFile(fname)
 			if err != nil {
 				return
@@ -112,7 +118,7 @@ func readFiles(files []string) (tests testing.Tests, err error) {
 		case ".yaml":
 			// Read yaml file
 			var body []byte
-			debugLog("Reading yaml test %s", fname)
+			glog.V(3).Infof("Reading yaml test %s", fname)
 			body, err = ioutil.ReadFile(fname)
 			if err != nil {
 				return
@@ -124,7 +130,7 @@ func readFiles(files []string) (tests testing.Tests, err error) {
 				return
 			}
 		default:
-			debugLog("Ignoring file %s (ext=%#v)", fname, ext)
+			glog.Warningf("Ignoring file %s (ext=%#v)", fname, ext)
 		}
 		tests = append(tests, more...)
 	}
@@ -160,7 +166,6 @@ func parseFlags() {
 	var srcs string
 	flag.StringVar(&testfile, "tests", "", "Files or directory containing YAML or JSON tests (can be glob pattern)")
 	flag.StringVar(&srcs, "sources", "", "Actions sources (comma separated directories & urls)")
-	flag.BoolVar(&debug, "debug", false, "Log debug info")
 	flag.Parse()
 
 	// Split comma separated sources into a list
@@ -170,12 +175,6 @@ func parseFlags() {
 	if testfile == "" {
 		flag.Usage()
 		os.Exit(0)
-	}
-}
-
-func debugLog(format string, v ...interface{}) {
-	if debug {
-		l.Printf(format, v...)
 	}
 }
 

@@ -62,5 +62,5 @@ func (results *Results) Print() {
 }
 
 func init() {
-	flag.BoolVar(&verbose, "v", false, "Verbose output: log all tests")
+	flag.BoolVar(&verbose, "p", false, "Verbose output: log all tests")
 }
