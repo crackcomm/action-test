@@ -149,19 +149,6 @@ func isURL(value string) (yes bool) {
 
 var actionTestDesctiption = `Application action-test runs tests from JSON or YAML files against actions from different sources.`
 
-var exampleTestYAML = `
-  - 
-    name: "filmweb.find"
-    description: "Should find movie by title"
-    arguments: 
-      title: "Pulp Fiction"
-    expect: 
-      writers: "Quentin Tarantino"
-      directors: "Quentin Tarantino"
-      title: "Pulp Fiction"
-      year: "1994"
-`
-
 func parseFlags() {
 	var srcs string
 	flag.StringVar(&testfile, "tests", "", "Files or directory containing YAML or JSON tests (can be glob pattern)")
@@ -186,8 +173,5 @@ func init() {
 		fmt.Fprint(os.Stderr, "\n")
 		fmt.Fprint(os.Stderr, "Flags:\n")
 		flag.PrintDefaults()
-		fmt.Fprint(os.Stderr, "\n")
-		fmt.Fprint(os.Stderr, "Example YAML tests:\n")
-		fmt.Fprint(os.Stderr, exampleTestYAML)
 	}
 }
