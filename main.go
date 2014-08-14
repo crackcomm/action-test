@@ -52,7 +52,7 @@ func main() {
 		} else {
 			// Add file source to default core registry
 			glog.V(3).Infof("New File source: %#v", source)
-			core.AddSource(&file.Source{source})
+			core.AddSource(&file.Source{Path: source})
 		}
 	}
 
