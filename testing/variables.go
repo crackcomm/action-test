@@ -125,6 +125,9 @@ func compareValues(a, b interface{}) (ok bool) {
 func mapCompare(a, b interface{}) bool {
 	am, _ := action.Format{a}.Map()
 	bm, _ := action.Format{b}.Map()
+	if len(am) != len(bm) {
+		return false
+	}
 	for key, value := range am {
 		if !compareValues(value, bm[key]) {
 			return false
