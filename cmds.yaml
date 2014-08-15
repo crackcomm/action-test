@@ -1,0 +1,4 @@
+
+install:
+  - cmd.run:
+    name: go install github.com/crackcomm/action-test
