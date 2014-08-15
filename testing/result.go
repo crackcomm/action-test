@@ -65,7 +65,6 @@ func (result *Result) Print() {
 		}
 	}
 
-
 	// Print result footer
 	if result.Passed && result.Error == nil {
 		result.printfoot("PASS")
