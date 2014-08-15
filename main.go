@@ -38,23 +38,7 @@ func main() {
 		l.Fatal(err)
 	}
 
-	// Add actions sources
-	for _, source := range sources {
-		// pass if empty
-		if source == "" {
-			continue
-		}
-		
-		// If source is a valid url - create http source
-		if isURL(source) {
-			glog.V(3).Infof("New HTTP source: %#v", source)
-			core.AddSource(&http.Source{Path: source})
-		} else {
-			// Add file source to default core registry
-			glog.V(3).Infof("New File source: %#v", source)
-			core.AddSource(&file.Source{Path: source})
-		}
-	}
+	core.AddSources(utils.GetSources(source)...)
 
 	// Print error when no tests
 	if len(tests) == 0 {
@@ -133,16 +117,6 @@ func readFiles(files []string) (tests testing.Tests, err error) {
 			glog.Warningf("Ignoring file %s (ext=%#v)", fname, ext)
 		}
 		tests = append(tests, more...)
-	}
-	return
-}
-
-// isURL - Returns true if value url scheme is a `http` or `https`.
-func isURL(value string) (yes bool) {
-	if uri, err := url.Parse(value); err == nil {
-		if uri.Scheme == "http" || uri.Scheme == "https" {
-			yes = true
-		}
 	}
 	return
 }
