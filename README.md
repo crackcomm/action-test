@@ -5,7 +5,7 @@ Testing tool for actions.
 ## Usage
 
 Test actions
-	
+
 	$ action-test
 	Usage of action-test:
 	  Application action-test runs tests from JSON or YAML files against actions from different sources.
@@ -29,7 +29,7 @@ Test actions
 	      title: "Pulp Fiction"
 	      year: "1994"
 
-	$ action-test -tests=./example/tests.json -sources=./example/actions
+	$ action-test -tests=./example/tests.yaml -sources=./example/actions
 	=== RUN filmweb.find
 
 	  Should find Pulp Fiction
