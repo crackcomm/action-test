@@ -35,43 +35,43 @@ $ action-test -tests=./example/tests.yaml -sources=file://example/actions
 
   Should find Pulp Fiction
 
-    × title is empty (expected Pulp Fiction)
-    × year is empty (expected 1994)
+    √ title => Pulp Fiction
+    √ year => 1994
+    √ countries => USA
+    √ genres => Gangsterski
     ? description => Przemoc i odkupienie w opowieści o dwóch płatnych mordercach pracujących na zlecenie mafii, żon...
-    ? countries => USA
-    ? genres => Gangsterski
     ? poster => http://1.fwcdn.pl/po/10/39/1039/7517880.3.jpg
-    × writers is empty (expected Quentin Tarantino)
+    √ writers => Quentin Tarantino
     √ directors => Quentin Tarantino
 
---- FAIL filmweb.find (156.856401ms)
+--- PASS filmweb.find (132.529264ms)
 === RUN filmweb.find
 
   Should find Apollo 13
 
-    × year is empty (expected 1995)
-    ? description => Podczas rutynowego lotu w kosmos na pokładzie statku Apollo 13 następuje wybuch.
+    √ year => 1995
+    √ countries => USA
+    √ genres => Dramat
     ? poster => http://1.fwcdn.pl/po/10/53/1053/7473756.3.jpg
-    ? countries => USA
-    ? genres => Dramat
+    ? description => Podczas rutynowego lotu w kosmos na pokładzie statku Apollo 13 następuje wybuch.
     √ directors => Ron Howard
-    × writers is empty (expected [William Broyles Jr. Al Reinert])
-    × title is empty (expected Apollo 13)
+    √ writers => [William Broyles Jr. Al Reinert]
+    √ title => Apollo 13
 
---- FAIL filmweb.find (139.62857ms)
+--- PASS filmweb.find (153.756246ms)
 === RUN filmweb.find
 
   Should find Avatar
 
-    × year is empty (expected 2009)
     √ directors => James Cameron
-    × writers is empty (expected James Cameron)
+    √ writers => James Cameron
+    √ title => Avatar
+    √ year => 2009
     ? poster => http://1.fwcdn.pl/po/91/13/299113/7332755.3.jpg
     ? description => Jake, sparaliżowany były komandos, otrzymuje misję i zostaje wysłany na planetę Pandora, gdzie ...
-    ? genres => Sci-Fi
-    ? countries => [USA Wielka Brytania]
-    × title is empty (expected Avatar)
+    √ genres => Sci-Fi
+    √ countries => [USA Wielka Brytania]
 
---- FAIL filmweb.find (128.831524ms)
---- FAIL   425.372557ms
+--- PASS filmweb.find (171.49564ms)
+--- OK   457.927317ms
 ```
