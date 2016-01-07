@@ -1,15 +1,22 @@
 package main
 
-import "os"
-import "fmt"
-import "log"
-import "flag"
-import "github.com/crackcomm/go-actions/core"
-import "github.com/crackcomm/go-actions/source/utils"
-import testutils "github.com/crackcomm/action-test/utils"
+import (
+	"flag"
+	"fmt"
+	"log"
+	"os"
+	"strings"
 
-// Core functions
-import _ "github.com/crackcomm/go-core"
+	testutils "github.com/crackcomm/action-test/utils"
+	"github.com/crackcomm/go-actions/core"
+
+	// Sources
+	_ "github.com/crackcomm/go-actions/source/file"
+	_ "github.com/crackcomm/go-actions/source/http"
+
+	// Core functions
+	_ "github.com/crackcomm/go-core"
+)
 
 // l - Logger
 var l = log.New(os.Stdout, "[action-test] ", 0)
@@ -37,7 +44,9 @@ func main() {
 	}
 
 	// Add actions sources
-	core.AddSources(utils.GetSources(sources)...)
+	for _, source := range strings.Split(sources, ",") {
+		core.Source(source)
+	}
 
 	// Run tests
 	results := tests.Run()
@@ -59,11 +68,10 @@ func parseFlags() {
 
 // init - Adds usage to flag.Usage :)
 func init() {
-	flag.StringVar(&dirname, "tests", "", "Files or directory containing YAML or JSON tests (can be glob pattern)")
-	flag.StringVar(&sources, "sources", "", "Actions sources (comma separated directories & urls)")
+	flag.StringVar(&dirname, "tests", "", "files or directory containing YAML or JSON tests (can be glob pattern)")
+	flag.StringVar(&sources, "sources", "", "actions sources (comma separated)")
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Usage of action-test:\n  %s\n", actionTestDesctiption)
-		// fmt.Fprint(os.Stderr, actionTestDesctiption)
 		fmt.Fprint(os.Stderr, "\n")
 		fmt.Fprint(os.Stderr, "Flags:\n")
 		flag.PrintDefaults()
