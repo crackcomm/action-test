@@ -6,6 +6,7 @@ Testing tool for actions.
 
 Test actions
 
+```sh
 	$ action-test
 	Usage of action-test:
 	  Application action-test runs tests from JSON or YAML files against actions from different sources.
@@ -46,3 +47,4 @@ Test actions
 
 	--- PASS: filmweb.find (234.0134ms)
 	...
+```
