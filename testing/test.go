@@ -1,10 +1,11 @@
 package testing
 
 import (
-	"github.com/crackcomm/go-actions/action"
-	"github.com/crackcomm/go-actions/local"
 	"io"
 	"io/ioutil"
+
+	"github.com/crackcomm/go-actions/action"
+	"github.com/crackcomm/go-actions/local"
 )
 
 // DefaultRunner - Test action default runner.

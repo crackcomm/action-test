@@ -2,9 +2,10 @@ package testing
 
 import (
 	"fmt"
-	"github.com/crackcomm/go-actions/action"
 	"reflect"
 	"strings"
+
+	"github.com/crackcomm/go-actions/action"
 )
 
 // Variables - Variables by name.

@@ -2,8 +2,9 @@ package testing
 
 import (
 	"fmt"
-	"github.com/crackcomm/go-actions/action"
 	"time"
+
+	"github.com/crackcomm/go-actions/action"
 )
 
 // Result - Test result.
