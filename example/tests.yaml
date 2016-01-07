@@ -1,35 +1,43 @@
-- 
+-
   name: "filmweb.find"
   description: "Should find Pulp Fiction"
-  ctx: 
-    query: 
+  ctx:
+    query:
       q: "Pulp Fiction"
-  expect: 
+  expect:
     writers: "Quentin Tarantino"
     directors: "Quentin Tarantino"
     title: "Pulp Fiction"
     year: "1994"
-- 
+    countries: "USA"
+    genres: "Gangsterski"
+-
   name: "filmweb.find"
   description: "Should find Apollo 13"
-  ctx: 
-    query: 
+  ctx:
+    query:
       q: "Apollo 13"
-  expect: 
+  expect:
     directors: "Ron Howard"
-    writers: 
+    writers:
       - "William Broyles Jr."
       - "Al Reinert"
     title: "Apollo 13"
     year: "1995"
-- 
+    countries: "USA"
+    genres: "Dramat"
+-
   name: "filmweb.find"
   description: "Should find Avatar"
-  ctx: 
-    query: 
+  ctx:
+    query:
       q: "avatar"
-  expect: 
+  expect:
     directors: "James Cameron"
     writers: "James Cameron"
     title: "Avatar"
     year: "2009"
+    genres: "Sci-Fi"
+    countries:
+      - "USA"
+      - "Wielka Brytania"
